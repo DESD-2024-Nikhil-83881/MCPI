@@ -36,17 +36,25 @@ void TimerDelayMs(uint32_t ms) {
 }
 
 
-volatile int cnt = 0;
+int cnt = 0;
+
 void TIM7_IRQHandler(void)
 {
-	char str[24];
-	if(TIM7->SR & TIM_SR_UIF) {
-		TIM7->SR &= ~TIM_SR_UIF;
-			cnt++;
-			sprintf(str, "Count%d", cnt);
-			LcdPuts(LCD_LINE2, str);
+     static int flag = 0;
+		// check if interrupt occurred
+		if(TIM7->SR & TIM_SR_UIF) {
+			// then clear (ack) the interrupt
+			TIM7->SR &= ~TIM_SR_UIF;
+			// toggle LED
+			if(flag == 0) {
+				cnt++;
+				flag = 1;
+			} else {
+
+				flag = 0;
+			}
+		}
 	}
-}
 
 
 

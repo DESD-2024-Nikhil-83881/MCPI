@@ -29,14 +29,20 @@
   #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
 #endif
 
+
 int main(void)
 {
-	char str1[20];
+	char str[20];
+extern int cnt;
 	SystemInit();
 	LcdInit();
 	LcdPuts(LCD_LINE1," interupt_Count");
 	TimerInit(1000);
-	while(1);
+	while(1) {
+			sprintf(str, "Count%d", cnt);
+			LcdPuts(LCD_LINE2, str);
+
+		}
 	return 0;
 }
 

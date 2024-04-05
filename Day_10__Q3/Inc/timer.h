@@ -16,5 +16,6 @@
 
 void TimerInit(uint32_t ms);
 void TimerDelayMs(uint32_t ms);
+extern int cnt;
 
 #endif /* TIMER_H_ */
